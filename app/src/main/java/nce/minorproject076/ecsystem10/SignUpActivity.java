@@ -1,10 +1,11 @@
 package nce.minorproject076.ecsystem10;
 
 import android.content.Intent;
-import android.media.MediaCodec;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -15,8 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-import java.util.regex.Pattern;
+import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,9 +33,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        progressBar = findViewById(R.id.progressbar);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -52,11 +54,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        //if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-        //    editTextEmail.setError("Please enter a valid Email ID");
-        //    editTextEmail.requestFocus();
-        //    return;
-        //}
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid Email ID");
+            editTextEmail.requestFocus();
+            return;
+        }
 
         if (password.isEmpty()){
             editTextPassword.setError("Password required");
@@ -73,6 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -84,8 +87,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Could not Register, Please Try Again", Toast.LENGTH_SHORT).show();
-
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        Toast.makeText(getApplicationContext(), "You are already Registered", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
