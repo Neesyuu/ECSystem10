@@ -8,41 +8,54 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="114dp"
+        android:orientation="vertical">
 
         <EditText
-            android:layout_margin="15dp"
-            android:inputType="textEmailAddress"
-            android:hint="Enter Email ID"
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:layout_margin="30dp"
+            android:background="@drawable/edit_round"
+            android:hint="Enter Email ID"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:translationY="50dp" />
 
         <EditText
-            android:layout_margin="15dp"
-            android:inputType="textPassword"
-            android:hint="Enter Password"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:layout_margin="30dp"
+            android:background="@drawable/edit_round"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:translationY="20dp" />
 
         <Button
-            android:layout_margin="15dp"
             android:id="@+id/buttonRegister"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@drawable/button_round"
             android:text="Register User"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <TextView
-            android:textAlignment="center"
-            android:text="Already Registered? Sign In here"
             android:id="@+id/textViewSignin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Already Registered? Sign In here"
+            android:textAlignment="center"
+            android:textColor="#ffffff" />
 
 
     </LinearLayout>
@@ -57,9 +70,17 @@
         android:layout_centerVertical="true"
         />
 
-
-
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="106dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="401dp"
+        app:srcCompat="@drawable/reg" />
 
 
 </RelativeLayout>

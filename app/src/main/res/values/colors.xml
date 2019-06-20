@@ -5,6 +5,8 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="WHITE">#FFFFFF</color>
     <color name="transparent">#000000</color>
-    <color name="gradStart">#19AA88</color>
-    <color name="gradStop">#23A7D8</color>
+    <color name="gradStart">#8D07D8</color>
+    <color name="gradStop">#D82356</color>
+    <color name="myblack">#3C3C3D</color>
+    <color name="bggblack">#1A1C24</color>
 </resources>
